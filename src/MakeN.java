@@ -1,5 +1,4 @@
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.Setter;
+
 
 import java.util.Random;
 
@@ -33,22 +32,29 @@ public class MakeN {
     }
 
 
-    public MakeN() {
+    public MakeN(double plaintext) {
         //constructor
-        this.n = makeN();
+        this.n = makeN(plaintext);
     }
 
-    public int makeN() {
+    private int makeN(double plaintext) {
 
-        p = makeP();
+        boolean done = false;
 
-        q = makeQ();
+        while (!done) {
+            p = makeP();
+
+            q = makeQ();
+
+            if (p * q < plaintext) {
+                done = true;
+            }
+        }
 
         return p * q;
-
     }
 
-    public int makeP() {
+    private int makeP() {
 
         Random random = new Random();
 
@@ -71,7 +77,7 @@ public class MakeN {
 
     }
 
-    public int makeQ() {
+    private int makeQ() {
 
         Random random = new Random();
 
@@ -93,7 +99,7 @@ public class MakeN {
         return q;
     }
 
-    public boolean isPrime(int number) {
+    private boolean isPrime(int number) {
 
         //it judge whether "number" is a prime number or not.
         //return "true" if a prime number, return "false" if a multiple
